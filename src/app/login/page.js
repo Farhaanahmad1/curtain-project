@@ -36,7 +36,7 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FFF8F0]">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-96 z-10">
         <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
         {error && <p className="text-red-500 text-center">{error}</p>}
         <form onSubmit={handleLogin}>
@@ -65,7 +65,12 @@ const LoginPage = () => {
           </button>
         </form>
       </div>
+      <div
+      id="hero-bg-pattern"
+      className="absolute top-0 left-0 w-full h-full opacity-5 pattern-grid"
+    > </div>
     </div>
+
   );
 };
 
