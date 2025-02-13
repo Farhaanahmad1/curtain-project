@@ -136,7 +136,7 @@ export default function CategoryDetail() {
         : filters.priceRange === "0-500"
         ? product.price >= 0 && product.price <= 500
         : true;
-    const matchesSearch = product.title.toLowerCase().includes(filters.searchQuery.toLowerCase());
+    const matchesSearch = product.title?.toLowerCase().includes(filters.searchQuery.toLowerCase());
 
     return matchesCategory && matchesPrice && matchesSearch;
   });
