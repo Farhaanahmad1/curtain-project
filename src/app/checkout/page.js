@@ -70,7 +70,7 @@ export default function Checkout() {
                   <img src={item.image} alt={item.title} className="w-12 h-12 md:w-16 md:h-16 rounded" />
                   <p className="font-semibold text-sm md:text-base hidden sm:block">{item.title}</p>
                 </td>
-                <td className="text-center p-2 text-sm md:text-base">${item.price.toFixed(2)}</td>
+                <td className="text-center p-2 text-sm md:text-base">${item.price}</td>
                 <td className="text-center p-2 text-sm md:text-base">{item.quantity}</td>
                 <td className="text-right p-2 text-sm md:text-base">${(item.price * item.quantity).toFixed(2)}</td>
               </tr>

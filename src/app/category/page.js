@@ -2,6 +2,7 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 
 // Sample product data with tags
 const products = [
@@ -25,6 +26,70 @@ export default function CategoryDetail() {
   const [filters, setFilters] = useState({ priceRange: null, category: null, searchQuery: "" });
   const [cartOpen, setCartOpen] = useState(false);
   const [addedToCart, setAddedToCart] = useState({});
+  const [products, setProducts] = useState([
+    { id: 1, title: "Luxury Living Room Curtain", price: 750, category: "living-room", image: "https://images.pexels.com/photos/1571458/pexels-photo-1571458.jpeg", tag: "Sale" },
+    { id: 2, title: "Elegant Bedroom Curtain", price: 850, category: "bedroom", image: "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg", tag: "New" },
+    { id: 3, title: "Modern Luxury Curtain", price: 1200, category: "luxury", image: "https://images.pexels.com/photos/276583/pexels-photo-276583.jpeg", tag: "Popular" },
+    { id: 4, title: "Office Space Curtain", price: 650, category: "office-hotel", image: "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg", tag: "Sale" },
+    { id: 5, title: "Custom Made Designer Curtain", price: 950, category: "custom-made", image: "https://images.pexels.com/photos/1648776/pexels-photo-1648776.jpeg", tag: "Sale" },
+    { id: 6, title: "Accessory Set for Curtains", price: 300, category: "accessories", image: "https://images.pexels.com/photos/271815/pexels-photo-271815.jpeg?auto=compress&cs=tinysrgb&w=400", tag: "New" },
+    { id: 7, title: "Silk Window Panels", price: 810, category: "living-room", image: "https://images.pexels.com/photos/271815/pexels-photo-271815.jpeg?auto=compress&cs=tinysrgb&w=400", tag: "Sale" },
+    { id: 8, title: "Elegant Sheer Curtains", price: 920, category: "bedroom", image: "https://images.pexels.com/photos/2029663/pexels-photo-2029663.jpeg?auto=compress&cs=tinysrgb&w=400", tag: "New" },
+    { id: 9, title: "Plush Velvet Drapery", price: 1450, category: "luxury", image: "https://images.pexels.com/photos/2291462/pexels-photo-2291462.jpeg?auto=compress&cs=tinysrgb&w=400", tag: "Popular" },
+    { id: 10, title: "Minimalist Office Shades", price: 695, category: "office-hotel", image: "https://images.pexels.com/photos/1701408/pexels-photo-1701408.jpeg?auto=compress&cs=tinysrgb&w=400", tag: "Sale" },
+    { id: 11, title: "Boho Tassel Window Covers", price: 1100, category: "custom-made", image: "https://images.pexels.com/photos/713149/pexels-photo-713149.jpeg?auto=compress&cs=tinysrgb&w=400", tag: "Sale" },
+    { id: 12, title: "Premium Curtain Tiebacks", price: 350, category: "accessories", image: "https://images.pexels.com/photos/90317/pexels-photo-90317.jpeg?auto=compress&cs=tinysrgb&w=400", tag: "New" },
+  ]); // Store editable products
+  const [admin, setAdmin] = useState(false); // Check if user is admin
+  const [editProduct, setEditProduct] = useState(null); // Stores product being edited
+  const [modalOpen, setModalOpen] = useState(false);
+
+
+
+  useEffect(() => {
+    // Check if user is admin from JWT token in localStorage
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decoded = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
+        if (decoded.role === "admin") {
+          setAdmin(true);
+        }
+      } catch (error) {
+        console.error("Invalid token:", error);
+      }
+    }
+  }, []);
+
+  // Open edit modal with selected product
+  const handleEdit = (product) => {
+    setEditProduct(product);
+    setModalOpen(true);
+  };
+
+  // Handle form input change
+  const handleChange = (e) => {
+    setEditProduct({ ...editProduct, [e.target.name]: e.target.value });
+  };
+
+  const handleSave = () => {
+    const updatedProducts = products.map((p) =>
+      p.id === editProduct.id ? editProduct : p
+    );
+    setProducts(updatedProducts);
+    localStorage.setItem("products", JSON.stringify(updatedProducts)); // Save to localStorage
+    setModalOpen(false);
+  };
+
+
+  useEffect(() => {
+    // Load products from local storage on mount
+    const storedProducts = JSON.parse(localStorage.getItem("products"));
+    if (storedProducts) {
+      setProducts(storedProducts);
+    }
+  }, []);
+
 
 
     // Load cart from local storage on mount
@@ -193,6 +258,19 @@ export default function CategoryDetail() {
   {paginatedProducts.length > 0 ? (
     paginatedProducts.map((product) => (
       <div key={product.id} className="bg-white p-4 rounded-lg shadow-md relative">
+
+
+            {/* Admin Edit Button */}
+            {admin && (
+              <button
+                onClick={() => handleEdit(product)}
+                className="absolute top-6 left-6 bg-blue-500 text-white p-2 rounded"
+              >
+                <FaEdit />
+              </button>
+            )}
+
+
         {/* Product Tag */}
         {product.tag && (
           <span className={`absolute top-6 right-6 px-3 py-1 text-white text-sm font-semibold rounded-full ${product.tag === "Sale" ? "bg-red-500" : product.tag === "New" ? "bg-green-500" : "bg-blue-500"}`}>
@@ -280,7 +358,7 @@ export default function CategoryDetail() {
                     />
 <p className="font-semibold text-xs md:text-sm hidden md:block">{item.title}</p>
                   </td>
-                  <td className="text-center p-2">${item.price.toFixed(2)}</td>
+                  <td className="text-center p-2">${item.price}</td>
                   <td className="text-center p-2">
                     <div className="flex items-center justify-center border rounded">
                       <button 
@@ -332,6 +410,53 @@ export default function CategoryDetail() {
     </div>
   </div>
 )}
+
+
+  {/* Edit Modal */}
+  {modalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h2 className="text-xl font-bold mb-4">Edit Category</h2>
+
+            <label className="block mb-2">Image URL:</label>
+            <input
+              type="text"
+              name="image"
+              value={editProduct.image}
+              onChange={handleChange}
+              className="w-full p-2 border rounded mb-4"
+            />
+
+            <label className="block mb-2">Title:</label>
+            <input
+              type="text"
+              name="title"
+              value={editProduct.title}
+              onChange={handleChange}
+              className="w-full p-2 border rounded mb-4"
+            />
+
+            <label className="block mb-2">Price:</label>
+            <input
+              type="number"
+              name="price"
+              value={editProduct.price}
+              onChange={handleChange}
+              className="w-full p-2 border rounded mb-4"
+            />
+            
+
+            <div className="flex justify-end space-x-2">
+              <button onClick={() => setModalOpen(false)} className="bg-gray-400 text-white px-4 py-2 rounded">
+                Cancel
+              </button>
+              <button onClick={handleSave} className="bg-blue-500 text-white px-4 py-2 rounded">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
 
     </div>
