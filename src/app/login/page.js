@@ -70,6 +70,7 @@ const LoginPage = () => {
       className="absolute top-0 left-0 w-full h-full opacity-5 pattern-grid"
     > </div>
     </div>
+    
 
   );
 };
