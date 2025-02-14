@@ -61,7 +61,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-6">
           <Link href="/" className="nav-link">Home</Link>
           <Link href="/category" className="nav-link">Category</Link>
-          <Link href="/" className="nav-link">About</Link>
+          <Link href="/our-work" className="nav-link">Our Work</Link>
           <Link href="/" className="nav-link">Contact</Link>
           <Link href="/" className="nav-link">Blog</Link>
 
@@ -94,7 +94,7 @@ const Navbar = () => {
           <div className="px-4 py-2 space-y-2">
             <Link href="/" className="block py-2 w-full text-left">Home</Link>
             <Link href="/category" className="block py-2 w-full text-left">Category</Link>
-            <Link href="/about" className="block py-2 w-full text-left">About</Link>
+            <Link href="/our-work" className="block py-2 w-full text-left">Our Work</Link>
             <Link href="/contact" className="block py-2 w-full text-left">Contact</Link>
             <Link href="/blog" className="block py-2 w-full text-left">Blog</Link>
 
