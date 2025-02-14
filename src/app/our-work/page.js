@@ -217,7 +217,7 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="text-white grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 name: "Sarah Anderson",
@@ -264,7 +264,7 @@ export default function Home() {
                     className="rounded"
                   />
                   <div>
-                    <h4 className="font-semibold text-lg">{testimonial.name}</h4>
+                    <h4 className="font-semibold text-lg text-white">{testimonial.name}</h4>
                     <p className="text-gray-400">{testimonial.role}</p>
                   </div>
                 </div>
