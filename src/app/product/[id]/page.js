@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 
 const ProductDetail = () => {
   const { id} = useParams();
+  
 
   const [product, setProduct] = useState(null);
 
