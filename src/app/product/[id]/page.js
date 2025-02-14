@@ -18,9 +18,12 @@ const ProductDetail = () => {
 
   if (!product) return <p className="text-center mt-10">Product not found!</p>;
 
+  
+
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-24">
-      <h1 className="text-3xl font-bold text-left sm:text-center mb-6">Related Products</h1>
+    <div className="h-screen bg-[#FFF8F0]">
+    <div className="relative max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg z-50 mt-24" >
+      <h1 className="text-3xl font-bold text-left sm:text-center">Related Products</h1>
       <img src={product.image} alt={product.title} className="w-full h-60 object-cover rounded-lg" />
       <h1 className="text-2xl font-bold mt-4">{product.title}</h1>
       <p className="text-gray-600 text-lg mt-2">${product.price}</p>
@@ -28,6 +31,12 @@ const ProductDetail = () => {
         {product.description || "This is a premium quality curtain perfect for your space."}
       </p>
     </div>
+    <div
+          id="hero-bg-pattern"
+          className="absolute  top-0 left-0 w-full h-full opacity-5 pattern-grid mt-20"
+        > </div>
+    </div>
+
   );
 };
 
