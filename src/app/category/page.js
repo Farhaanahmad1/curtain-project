@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
-
+import Link from "next/link";
 // Sample product data with tags
 const products = [
   { id: 1, title: "Luxury Living Room Curtain", price: 750, category: "living-room", image: "https://images.pexels.com/photos/1571458/pexels-photo-1571458.jpeg", tag: "Sale" },
@@ -271,6 +271,11 @@ export default function CategoryDetail() {
             )}
 
 
+    {!admin ? (
+    <Link href={`/product/${product.id}`} className="block">
+      {/* Product Content (Image, Title, Price) */}
+      <div>
+
         {/* Product Tag */}
         {product.tag && (
           <span className={`absolute top-6 right-6 px-3 py-1 text-white text-sm font-semibold rounded-full ${product.tag === "Sale" ? "bg-red-500" : product.tag === "New" ? "bg-green-500" : "bg-blue-500"}`}>
@@ -284,6 +289,27 @@ export default function CategoryDetail() {
         {/* Product Details */}
         <h2 className="mt-2 text-lg font-semibold">{product.title}</h2>
         <p className="text-gray-600">${product.price}</p>
+        </div>
+    </Link>
+    ) : (
+       // Show Only for Admin Without Link
+       <>
+       {/* Product Tag */}
+       {product.tag && (
+         <span className={`absolute top-6 right-6 px-3 py-1 text-white text-sm font-semibold rounded-full ${product.tag === "Sale" ? "bg-red-500" : product.tag === "New" ? "bg-green-500" : "bg-blue-500"}`}>
+           {product.tag}
+         </span>
+       )}
+ 
+       {/* Product Image */}
+       <img src={product.image} alt={product.title} className="w-full h-40 object-cover rounded" />
+ 
+       {/* Product Details */}
+       <h2 className="mt-2 text-lg font-semibold">{product.title}</h2>
+       <p className="text-gray-600">${product.price}</p>
+     </>
+   )}
+
         <button className="mt-2 bg-blue-500 text-white py-2 px-4 rounded w-full" onClick={() => handleAddToCart(product)}>
           {addedToCart[product.id] ? "Successfully Added..." : "Add to Cart"}
         </button>
