@@ -64,7 +64,7 @@ export default function Home() {
               >
                 <Link 
                   href="/shop"
-                  className="bg-white text-gray-900 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 inline-flex items-center group shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  className="bg-white text-gray-900 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 inline-flex items-center group shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 "
                 >
                   Explore Collection
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
@@ -87,7 +87,7 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <div className="container mx-auto">
+          <div className="container mx-auto hidden lg:block">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/10 backdrop-blur-md rounded-2xl p-6 text-white">
               {[
                 { number: "1500+", label: "Happy Clients" },
