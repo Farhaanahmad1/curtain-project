@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { id} = useParams();
 
   const [product, setProduct] = useState(null);
 
